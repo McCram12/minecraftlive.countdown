@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown for Minecraft Live</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #2e2e2e;
+            color: #ffffff;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        #countdown {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .time-box {
+            background-color: #333;
+            border-radius: 10px;
+            padding: 20px;
+            width: 100px;
+            text-align: center;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .time-box span {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #ffcc00;
+        }
+
+        .time-box p {
+            font-size: 1rem;
+            color: #cccccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Next Minecraft Live in:</h1>
+        <div id="countdown">
+            <div class="time-box">
+                <span id="days"></span>
+                <p>Days</p>
+            </div>
+            <div class="time-box">
+                <span id="hours"></span>
+                <p>Hours</p>
+            </div>
+            <div class="time-box">
+                <span id="minutes"></span>
+                <p>Minutes</p>
+            </div>
+            <div class="time-box">
+                <span id="seconds"></span>
+                <p>Seconds</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Date and time for the next Minecraft Live event in UTC (28th September 2024, 19:00 German time)
+        const mcLifeUTC = new Date(Date.UTC(2024, 8, 28, 17, 0, 0)); // 28th September 2024, 19:00 CEST (UTC+2)
+
+        // Function to update countdown based on the user's local time zone
+        function getLocalCountdownTime() {
+            const now = new Date(); // User's local time
+            const timeDifference = mcLifeUTC - now; // Time difference between now and Minecraft Live in UTC
+
+            const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+            // Update the HTML elements with the calculated time
+            document.getElementById("days").innerHTML = days;
+            document.getElementById("hours").innerHTML = hours;
+            document.getElementById("minutes").innerHTML = minutes;
+            document.getElementById("seconds").innerHTML = seconds;
+
+            // If the countdown is over
+            if (timeDifference < 0) {
+                clearInterval(countdownInterval);
+                document.getElementById("countdown").innerHTML = "Minecraft Live has started!";
+            }
+        }
+
+        // Update the countdown every second
+        const countdownInterval = setInterval(getLocalCountdownTime, 1000);
+    </script>
+</body>
+</html>
