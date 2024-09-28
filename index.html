@@ -55,6 +55,13 @@
             font-size: 1rem;
             color: #cccccc;
         }
+
+        /* Add styling for the image */
+        #glowsquid {
+            margin-top: 20px;
+            width: 300px;
+            display: none; /* Initially hidden */
+        }
     </style>
 </head>
 <body>
@@ -78,6 +85,9 @@
                 <p>Seconds</p>
             </div>
         </div>
+
+        <!-- Image to show after the countdown ends -->
+        <img id="glowsquid" src="glowsquid.gif" alt="Glowsquid GIF">
     </div>
 
     <script>
@@ -103,7 +113,8 @@
             // If the countdown is over
             if (timeDifference < 0) {
                 clearInterval(countdownInterval);
-                document.getElementById("countdown").innerHTML = "Minecraft Live has startet! See you in 2025!";
+                document.getElementById("countdown").innerHTML = "Minecraft Live has started! See you in 2025!";
+                document.getElementById("glowsquid").style.display = 'block'; // Show the GIF
             }
         }
 
